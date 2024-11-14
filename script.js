@@ -1,47 +1,82 @@
 function startChaos() {
-  // Check if pop-ups are allowed by opening and immediately closing a test window
-  const testPopup = window.open('', '', 'width=100,height=100');
-  if (testPopup === null || typeof testPopup === 'undefined') {
-      alert("Please enable pop-ups for ur browser update!");
-      return; // Stop execution if pop-ups are blocked
-  } else {
-      testPopup.close();
-  }
+    // Check if pop-ups are allowed
+    const testPopup = window.open('', '', 'width=100,height=100');
+    if (testPopup === null || typeof testPopup === 'undefined') {
+        alert("Please enable pop-ups to start the browser Update");
+        return;
+    } else {
+        testPopup.close();
+    }
 
-  // Directly play sound in the main window to ensure it starts after the button click
-  const audio = new Audio('annoying-sound.mp3');
-  audio.volume = 1.0; // Maximum volume
-  audio.loop = true;  // Loop the sound
-  audio.play().catch(error => console.log("Autoplay prevented:", error));
+    // Play sound in main window
+    const audio = new Audio('annoying-sound.mp3');
+    audio.volume = 1.0;
+    audio.loop = true;
+    audio.play().catch(error => console.log("Autoplay prevented:", error));
 
-  // Start a loop to continuously open pop-up windows
-  setInterval(createMovingPopup, 500); // Opens a new window every 500ms
+    // Start pop-ups for chaos and ads
+    setInterval(createMovingPopup, 500); // Prank pop-up every 500ms
+    setInterval(createAdPopup, 2000);    // Ad pop-up every 2 seconds
 }
 
+// Function to create prank pop-ups
 function createMovingPopup() {
-  // Specify the window size and features
-  const width = 500;
-  const height = 250;
-  const left = Math.random() * (window.screen.width - width);
-  const top = Math.random() * (window.screen.height - height);
+    const width = 200;
+    const height = 200;
+    const left = Math.random() * (window.screen.width - width);
+    const top = Math.random() * (window.screen.height - height);
 
-  // Open a new window with random initial position
-  const popup = window.open('', '', `width=${width},height=${height},left=${left},top=${top}`);
-  if (popup) {
-      popup.document.write(`
-          <body style="background-color:#000000; display: flex; justify-content: center; align-items: center; height: 100%; margin: 0;">
-              <img src="prank-image.jpg" alt="Prank Image" style="max-width: 100%; max-height: 100%;">
-          </body>
-      `);
+    const popup = window.open('', '', `width=${width},height=${height},left=${left},top=${top}`);
+    if (popup) {
+        popup.document.write(`
+            <style>html, body { margin: 0; height: 100%; overflow: hidden; } img { width: 100%; height: 100%; }</style>
+            <img src="prank-image.jpg" alt="Prank Image">
+            <audio autoplay loop><source src="annoying-sound.mp3" type="audio/mpeg"></audio>
+        `);
+        
+        // Make the pop-up move around
+        setInterval(() => {
+            const newLeft = Math.random() * (window.screen.width - width);
+            const newTop = Math.random() * (window.screen.height - height);
+            popup.moveTo(newLeft, newTop);
+        }, 700);
+    }
+}
 
-      // Function to move the window around randomly
-      function movePopup() {
-          const newLeft = Math.random() * (window.screen.width - width);
-          const newTop = Math.random() * (window.screen.height - height);
-          popup.moveTo(newLeft, newTop);
-      }
+// Function to create ad pop-ups
+function createAdPopup() {
+    const width = 250;
+    const height = 150;
+    const left = Math.random() * (window.screen.width - width);
+    const top = Math.random() * (window.screen.height - height);
 
-      // Move the pop-up every 700 milliseconds
-      setInterval(movePopup, 500);
-  }
+    const popup = window.open('', '', `width=${width},height=${height},left=${left},top=${top}`);
+    if (popup) {
+        // Random ad content
+        const ads = [
+            `<div style="text-align:center; font-family:Arial, sans-serif; color:black;">
+                <h3>Got eliPhobia?</h3>
+                <p>Afraid of Eli? Get help now!</p>
+                <button onclick="window.close()">Click Here!</button>
+             </div>`,
+            `<div style="text-align:center; font-family:Arial, sans-serif; color:red;">
+                <h3>Is Eli haunting you?</h3>
+                <p>You may be suffering from eliPhobia!</p>
+                <button onclick="window.close()">Get Help Now!</button>
+             </div>`,
+            `<div style="text-align:center; font-family:Comic Sans MS; color:blue;">
+                <h3>Scared of Eli?</h3>
+                <p>Maybe it's eliPhobia!</p>
+                <button onclick="window.close()">Free Diagnosis!</button>
+             </div>`
+        ];
+
+        // Select a random ad from the list
+        const randomAd = ads[Math.floor(Math.random() * ads.length)];
+        
+        popup.document.write(`
+            <style>html, body { margin: 0; padding: 10px; background-color: yellow; } button { font-size: 14px; padding: 5px; }</style>
+            ${randomAd}
+        `);
+    }
 }

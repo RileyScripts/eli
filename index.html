@@ -4,13 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eli Gay Simulator</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Main page styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ccaa;
+            margin: 0;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            text-align: center;
+            max-width: 600px;
+            margin: 20px;
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #00ffcc, #00bbaa);
+            border: none;
+            padding: 15px 30px;
+            color: #121212;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgba(0, 255, 204, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .start-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(0, 255, 204, 0.8);
+        }
+
+        .start-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Add a subtle floating animation */
+        @keyframes floating {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Apply animation to heading and button */
+        h1, .start-button {
+            animation: floating 3s ease-in-out infinite;
+        }
+    </style>
 </head>
 <body>
-    <div id="content">
-        <h1>You’re an EliDiot!</h1>
-        <button onclick="startChaos()">Open Eli Simulator!</button>
-    </div>
-    <script src="script.js"></script>
+    <h1>Welcome to the Beta Version 0.01</h1>
+    <p>Are you ready for the ultimate game? Press the button below to open the game! u need to have popups enabled for the game to open</p>
+    <button class="start-button" onclick="startChaos()">Start the Simulator</button>
+
+    <script>
+        // Insert your existing JavaScript code for the prank functions here
+        function startChaos() {
+            // Original JavaScript code goes here
+        }
+    </script>
 </body>
 </html>
